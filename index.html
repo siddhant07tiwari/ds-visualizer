@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DS Lab — Visualize Data Structures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">DS</span>
+      <div class="brand-text">
+        <span class="brand-title">DS_LAB</span>
+        <span class="brand-sub">interactive structures</span>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-target="stack">
+        <span class="nav-tag">01</span> Stack
+      </button>
+      <button class="nav-item" data-target="queue">
+        <span class="nav-tag">02</span> Queue
+      </button>
+      <button class="nav-item" data-target="deque">
+        <span class="nav-tag">03</span> Deque
+      </button>
+      <button class="nav-item" data-target="linkedlist">
+        <span class="nav-tag">04</span> Linked List
+      </button>
+      <button class="nav-item" data-target="bst">
+        <span class="nav-tag">05</span> Binary Search Tree
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>LIFO / FIFO / nodes / trees</span>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="content">
+
+    <!-- STACK -->
+    <section class="panel active" id="stack">
+      <header class="panel-head">
+        <h1>Stack <span class="panel-eyebrow">LIFO · Last In, First Out</span></h1>
+        <p class="panel-desc">Elements are added and removed from the same end, called the <b>top</b>. Think of a stack of plates — you can only take from the top.</p>
+      </header>
+
+      <div class="stage-wrap">
+        <div class="controls">
+          <input type="text" id="stack-input" placeholder="value" maxlength="6">
+          <button class="btn btn-primary" id="stack-push">Push</button>
+          <button class="btn btn-danger" id="stack-pop">Pop</button>
+          <button class="btn btn-ghost" id="stack-peek">Peek</button>
+          <button class="btn btn-ghost" id="stack-clear">Clear</button>
+        </div>
+
+        <div class="visual-area">
+          <div class="stack-base">
+            <div class="stack-column" id="stack-column"></div>
+            <div class="floor-label">base</div>
+          </div>
+          <div class="side-panel">
+            <div class="metric"><span class="metric-label">size</span><span class="metric-value" id="stack-size">0</span></div>
+            <div class="metric"><span class="metric-label">top</span><span class="metric-value" id="stack-top">—</span></div>
+            <div class="log" id="stack-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-tab">push(x)</div>
+<pre><code>function push(stack, value) {
+  stack.push(value);   // add to the end (top)
+}</code></pre>
+        <div class="code-tab">pop()</div>
+<pre><code>function pop(stack) {
+  return stack.pop();  // remove from the end (top)
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- QUEUE -->
+    <section class="panel" id="queue">
+      <header class="panel-head">
+        <h1>Queue <span class="panel-eyebrow">FIFO · First In, First Out</span></h1>
+        <p class="panel-desc">Elements join at the <b>rear</b> and leave from the <b>front</b>. Think of a line at a ticket counter.</p>
+      </header>
+
+      <div class="stage-wrap">
+        <div class="controls">
+          <input type="text" id="queue-input" placeholder="value" maxlength="6">
+          <button class="btn btn-primary" id="queue-enqueue">Enqueue</button>
+          <button class="btn btn-danger" id="queue-dequeue">Dequeue</button>
+          <button class="btn btn-ghost" id="queue-peek">Peek</button>
+          <button class="btn btn-ghost" id="queue-clear">Clear</button>
+        </div>
+
+        <div class="visual-area">
+          <div class="queue-lane">
+            <div class="lane-label lane-label-front">FRONT</div>
+            <div class="queue-row" id="queue-row"></div>
+            <div class="lane-label lane-label-rear">REAR</div>
+          </div>
+          <div class="side-panel">
+            <div class="metric"><span class="metric-label">size</span><span class="metric-value" id="queue-size">0</span></div>
+            <div class="metric"><span class="metric-label">front</span><span class="metric-value" id="queue-front">—</span></div>
+            <div class="log" id="queue-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-tab">enqueue(x)</div>
+<pre><code>function enqueue(queue, value) {
+  queue.push(value);     // add to the rear
+}</code></pre>
+        <div class="code-tab">dequeue()</div>
+<pre><code>function dequeue(queue) {
+  return queue.shift();  // remove from the front
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- DEQUE -->
+    <section class="panel" id="deque">
+      <header class="panel-head">
+        <h1>Deque <span class="panel-eyebrow">Double-Ended Queue</span></h1>
+        <p class="panel-desc">A queue that allows insertion and removal from <b>both ends</b> — front and rear.</p>
+      </header>
+
+      <div class="stage-wrap">
+        <div class="controls">
+          <input type="text" id="deque-input" placeholder="value" maxlength="6">
+          <button class="btn btn-primary" id="deque-addfront">Add Front</button>
+          <button class="btn btn-primary" id="deque-addrear">Add Rear</button>
+          <button class="btn btn-danger" id="deque-remfront">Remove Front</button>
+          <button class="btn btn-danger" id="deque-remrear">Remove Rear</button>
+          <button class="btn btn-ghost" id="deque-clear">Clear</button>
+        </div>
+
+        <div class="visual-area">
+          <div class="queue-lane">
+            <div class="lane-label lane-label-front">FRONT</div>
+            <div class="queue-row" id="deque-row"></div>
+            <div class="lane-label lane-label-rear">REAR</div>
+          </div>
+          <div class="side-panel">
+            <div class="metric"><span class="metric-label">size</span><span class="metric-value" id="deque-size">0</span></div>
+            <div class="log" id="deque-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-tab">addFront / addRear</div>
+<pre><code>function addFront(deque, value) { deque.unshift(value); }
+function addRear(deque, value)  { deque.push(value);    }</code></pre>
+        <div class="code-tab">removeFront / removeRear</div>
+<pre><code>function removeFront(deque) { return deque.shift(); }
+function removeRear(deque)  { return deque.pop();   }</code></pre>
+      </div>
+    </section>
+
+    <!-- LINKED LIST -->
+    <section class="panel" id="linkedlist">
+      <header class="panel-head">
+        <h1>Linked List <span class="panel-eyebrow">Nodes &amp; Pointers</span></h1>
+        <p class="panel-desc">Each node stores a value and a pointer to the <b>next</b> node. No contiguous memory required.</p>
+      </header>
+
+      <div class="stage-wrap">
+        <div class="controls">
+          <input type="text" id="ll-input" placeholder="value" maxlength="6">
+          <input type="number" id="ll-index" placeholder="index" style="width:80px">
+          <button class="btn btn-primary" id="ll-addhead">Add Head</button>
+          <button class="btn btn-primary" id="ll-addtail">Add Tail</button>
+          <button class="btn btn-primary" id="ll-insertat">Insert At</button>
+          <button class="btn btn-danger" id="ll-removeat">Remove At</button>
+          <button class="btn btn-ghost" id="ll-clear">Clear</button>
+        </div>
+
+        <div class="visual-area">
+          <div class="ll-lane" id="ll-lane"></div>
+          <div class="side-panel">
+            <div class="metric"><span class="metric-label">length</span><span class="metric-value" id="ll-size">0</span></div>
+            <div class="log" id="ll-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-tab">Node</div>
+<pre><code>class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}</code></pre>
+        <div class="code-tab">insertAt(i, value)</div>
+<pre><code>function insertAt(list, i, value) {
+  const node = new Node(value);
+  if (i === 0) { node.next = list.head; list.head = node; return; }
+  let prev = list.head;
+  for (let k = 0; k < i - 1; k++) prev = prev.next;
+  node.next = prev.next;
+  prev.next = node;
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- BST -->
+    <section class="panel" id="bst">
+      <header class="panel-head">
+        <h1>Binary Search Tree <span class="panel-eyebrow">Ordered Tree Structure</span></h1>
+        <p class="panel-desc">Each node has at most two children. Left subtree &lt; node &lt; right subtree, always.</p>
+      </header>
+
+      <div class="stage-wrap">
+        <div class="controls">
+          <input type="text" id="bst-input" placeholder="number" maxlength="6">
+          <button class="btn btn-primary" id="bst-insert">Insert</button>
+          <button class="btn btn-danger" id="bst-delete">Delete</button>
+          <button class="btn btn-ghost" id="bst-search">Search</button>
+          <button class="btn btn-ghost" id="bst-inorder">Inorder Walk</button>
+          <button class="btn btn-ghost" id="bst-clear">Clear</button>
+        </div>
+
+        <div class="visual-area">
+          <div class="bst-canvas-wrap">
+            <svg id="bst-svg" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet"></svg>
+          </div>
+          <div class="side-panel">
+            <div class="metric"><span class="metric-label">nodes</span><span class="metric-value" id="bst-size">0</span></div>
+            <div class="metric"><span class="metric-label">height</span><span class="metric-value" id="bst-height">0</span></div>
+            <div class="log" id="bst-log"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-tab">insert(value)</div>
+<pre><code>function insert(node, value) {
+  if (!node) return { value, left: null, right: null };
+  if (value < node.value) node.left = insert(node.left, value);
+  else if (value > node.value) node.right = insert(node.right, value);
+  return node;
+}</code></pre>
+        <div class="code-tab">search(value)</div>
+<pre><code>function search(node, value) {
+  if (!node) return false;
+  if (node.value === value) return true;
+  return value < node.value
+    ? search(node.left, value)
+    : search(node.right, value);
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
